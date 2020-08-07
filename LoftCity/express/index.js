@@ -8,47 +8,22 @@ app.use(body_parser.json())
 app.use(cors())
 
 
-
-var kv = [   {
-  "id":0,
-  "img": faker.image.avatar(),
-  "img2": faker.image.avatar(),
-  "img3": faker.image.avatar(),
-  "description": faker.lorem.paragraph(),
-  "address": faker.address.streetAddress() ,
-  "email":faker.internet.email()
-},
-{
-  "id":1,
-  "img": faker.image.avatar(),
-  "img2": faker.image.avatar(),
-  "img3": faker.image.avatar(),
-  "description": faker.lorem.paragraph(),
-  "address": faker.address.streetAddress() ,
-  "email":faker.internet.email()
-},
-{
-  "id":2,
-  "img": faker.image.avatar(),
-  "img2": faker.image.avatar(),
-  "img3": faker.image.avatar(),
-  "description": faker.lorem.paragraph(),
-  "address": faker.address.streetAddress() ,
-  "email":faker.internet.email()
-},
-{
-  "id":3,
-  "img": faker.image.avatar(),
-  "img2": faker.image.avatar(),
-  "img3": faker.image.avatar(),
-  "description": faker.lorem.paragraph(),
-  "address": faker.address.streetAddress() ,
-  "email":faker.internet.email()
-},
-];
-
-
-
+var kv = Array();
+for (let i=0; i<10; i++){
+    kv[i]={
+      "id":i,
+      "img": faker.image.avatar(),
+      "img2": faker.image.avatar(),
+      "img3": faker.image.avatar(),
+      "description": faker.lorem.paragraph(),
+      "address": faker.address.streetAddress() ,
+      "email":faker.internet.email(),
+      "numroom":faker.random.number({
+        'min': 1,
+        'max': 3
+    })
+    }
+}
 
 
   app.get('/getOne/:app', async (req,res)=>{ 
@@ -88,8 +63,16 @@ app.get('/getOne', (req,res) => {
 
 
 // An api endpoint that returns a short list of items
-app.get('/getKV', (req,res) => {
-    res.json(kv);
+app.get('/getKV/:filter', (req,res) => {
+  let result = Array();
+  let count=0;
+  for(let i= 0;i <  req.params.filter.length;i++){
+    for (let j= 0; j< kv.length; j++){
+         if(kv[j].numroom == req.params.filter[i])
+         result[count++]=kv[j]
+    }
+  }
+    res.json(result);
     console.log('Sent list of items (kv)');
     
 });

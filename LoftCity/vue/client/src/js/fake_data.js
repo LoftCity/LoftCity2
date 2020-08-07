@@ -3,12 +3,12 @@ import axios from "axios"
 class fake_data
 {
    
- static getkv(){
+ static getkv(filters){
   return new Promise((resolve,reject) =>{
      axios
-     .get("http://localhost:5000/getKV")
+     .get("http://localhost:5000/getKV/"+filters)
      .then((res)=> {const data = res.data; 
-        resolve( data.map(kv=> ({ ...kv, link:"/One_kv/"+kv.id })))
+        resolve( data.map(kv=> ({ ...kv, link:"/One_kv/"+kv.id})))
       })
       .catch((err)=>{
          reject(err);

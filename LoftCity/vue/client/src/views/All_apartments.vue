@@ -1,6 +1,21 @@
 <template>
   <div>
-    
+
+      <b-form-group label= "Выберите количество комнат:">
+      <b-form-checkbox
+        v-for="option in options"
+        v-model="selected"
+        :key="option.value"
+        :value="option.value"
+        name="flavour-3a"
+      >
+        {{ option.text }}
+      </b-form-checkbox>
+      <br>
+      <b-button @click="Choice">Применить</b-button>
+    </b-form-group>
+
+
     <kv v-for="res in data" 
     :key="res.img" 
     v-bind:img= res.img 
@@ -35,7 +50,7 @@
 
 <script>
 import kv from "../components/One_apartment";
-import fake_data from "../js/fake_data"
+import fake_data from "../js/fake_data";
 
 export default {
   components: {
@@ -45,13 +60,31 @@ export default {
     return {
       data: [],
       result:[],
-      errors: []
+      errors: [],
+      selected: [1,2,3], 
+      options: [
+        { text: '1-комнатная', value: '1' },
+        { text: '2-комнатная', value: '2' },
+        { text: '3-комнатная', value: '3' }
+      ]
     }
+  },
+
+  methods: {
+   async Choice(){
+        //console.log(this.selected);
+      try{
+        this.data =  await fake_data.getkv(this.selected)
+    }
+    catch(err){
+      this.errors = err
+    }
+  }
   },
 
   async mounted () {
     try{
-        this.data =  await fake_data.getkv()
+        this.data =  await fake_data.getkv(this.selected)
     }
     catch(err){
       this.errors = err
@@ -60,10 +93,6 @@ export default {
 }
 </script>
  
-
-
-
-
 
 <style scoped>
 .justify{
