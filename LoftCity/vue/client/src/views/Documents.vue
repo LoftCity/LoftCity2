@@ -53,7 +53,7 @@ export default {
 
   async mounted () {
     try{
-        this.data =  await fake_data.getDoc()
+        this.data =  await fake_data.doc()
     }
     catch(err){
       this.errors = err

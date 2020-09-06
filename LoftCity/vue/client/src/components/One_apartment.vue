@@ -10,7 +10,7 @@
           <b-card-text>
             {{description}}
             <hr> 
-            <router-link :to= "{name: 'One_kv', params: {id: id }}" >Подробнее</router-link> 
+            <router-link :to= "{name: 'kv', params: {id: id }}" >Подробнее</router-link> 
           </b-card-text>
         </b-card-body>
       </b-col>

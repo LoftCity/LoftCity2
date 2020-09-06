@@ -23,7 +23,7 @@
     {{data.email}}
 </b-card-text>
 <span>
-  <b-button variant="danger"><router-link to= '/All_apartments'>Назад</router-link></b-button>
+  <b-button variant="danger"><router-link to= '/apartments'>Назад</router-link></b-button>
   <b-button variant="success"><router-link to= '/Documents'>Документы для заполнения</router-link></b-button>
 </span>
 </div>
@@ -45,7 +45,7 @@ export default {
   async mounted () {
     try{
       console.log(this.id);
-        this.data =  await fake_data.getOne(this.id)
+        this.data =  await fake_data.one(this.id)
     }
     catch(err){
       this.errors = err

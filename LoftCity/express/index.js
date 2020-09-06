@@ -26,7 +26,7 @@ for (let i=0; i<10; i++){
 }
 
 
-  app.get('/getOne/:app', async (req,res)=>{ 
+  app.get('/one/:app', async (req,res)=>{ 
 
      param = req.params.app; 
      var onekv = kv[param];
@@ -36,16 +36,7 @@ for (let i=0; i<10; i++){
 
 
 
-// An api endpoint that returns a short list of items
-app.get('/getList', (req,res) => {
-    var list = [faker.name.prefix(), faker.name.prefix(), faker.name.prefix()];
-    res.json(list);
-    console.log('Sent list of items');
-});
-
-
-
-app.get('/getOne', (req,res) => {
+app.get('/one', (req,res) => {
   var onekv = [  
           {
           "city": faker.image.avatar(),
@@ -63,7 +54,7 @@ app.get('/getOne', (req,res) => {
 
 
 // An api endpoint that returns a short list of items
-app.get('/getKV/:filter', (req,res) => {
+app.get('/apartments/:filter', (req,res) => {
   let result = Array();
   let count=0;
   for(let i= 0;i <  req.params.filter.length;i++){
@@ -79,62 +70,21 @@ app.get('/getKV/:filter', (req,res) => {
 
 
 // An api endpoint that returns a short list of items
-app.get('/getDocs', (req,res) => {
-    var docs = [   {
-                    "id":1,
-                    "doc":"Kвитанции об оплате коммунальных услуг",
-                    "text": faker.lorem.paragraph(),
-                    "word":faker.random.word()
-                },
-                {
-                    "id":2,
-                    "doc": "Документ о ежемесячной оплате аренды",
-                    "text": faker.lorem.paragraph(), 
-                    "word":faker.random.word()
-                },
-                {
-                    "id":3,
-                    "doc": "Документ о временной регистрации",
-                    "text": faker.lorem.paragraph(),
-                    "word":faker.random.word()
-                },
-                {
-                    "id":4,
-                    "doc": "Договор о заверенной доверенности",
-                    "text": faker.lorem.paragraph(),
-                    "word":faker.random.word()
-                },
-        ];
-    res.json(docs);
+var doc = Array();
+var docs=["Kвитанции об оплате коммунальных услуг", "Документ о ежемесячной оплате аренды", "Документ о временной регистрации", "Договор о заверенной доверенности"]
+for (let i=0; i<4; i++){
+    doc[i]={
+      "id":i,
+      "doc": docs[i],
+      "text": faker.lorem.paragraph(),
+      "word":faker.random.word()
+    }
+}
+
+app.get('/docs', (req,res) => {
+    res.json(doc);
     console.log('Sent list of items (docs)');
 });
-
-
-
-
-// // An api endpoint that returns a short list of items
-// app.get('/:appid', (req,res) => {
-
-//     var onekv = [  
-//             {
-//             "city": faker.image.city(),
-//             "text": faker.lorem.paragraph(),
-//             "address": faker.address.streetAddress() ,
-//             "email":faker.internet.email(),
-//             "number" : faker.phone.phoneNumber()
-//              }
-//         ];
-//     res.json(onekv);
-//     res.send('The view of appartment' + res.params.appid)
-//     console.log('Sent list of items(One)');
-// });
-
-
-
-
-// Handles any requests that don't match the ones above
-
-
 
 
 const port = process.env.PORT || 5000;

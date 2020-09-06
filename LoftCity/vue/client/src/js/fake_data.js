@@ -6,9 +6,9 @@ class fake_data
  static getkv(filters){
   return new Promise((resolve,reject) =>{
      axios
-     .get("http://localhost:5000/getKV/"+filters)
+     .get("http://localhost:5000/apartments/"+filters)
      .then((res)=> {const data = res.data; 
-        resolve( data.map(kv=> ({ ...kv, link:"/One_kv/"+kv.id})))
+        resolve( data.map(kv=> ({ ...kv, link:"/kv/"+kv.id})))
       })
       .catch((err)=>{
          reject(err);
@@ -19,10 +19,10 @@ class fake_data
 
 
 
- static getOne(id){
+ static one(id){
    return new Promise((resolve,reject) =>{
       axios
-      .get("http://localhost:5000/getOne/"+id)
+      .get("http://localhost:5000/one/"+id)
       .then((res)=> {
          const data = res.data; 
          console.log(data);
@@ -42,10 +42,10 @@ class fake_data
 
 
 
-  static getDoc(){
+  static doc(){
    return new Promise((resolve,reject) =>{
       axios
-      .get("http://localhost:5000/getDocs/")
+      .get("http://localhost:5000/docs/")
       .then((res)=> {
          const data = res.data; 
          console.log(data);

@@ -10,6 +10,8 @@
         name="flavour-3a"
       >
         {{ option.text }}
+
+        
       </b-form-checkbox>
       <br>
       <b-button @click="Choice">Применить</b-button>
@@ -44,7 +46,7 @@
         </b-button-group>
       </b-button-toolbar>
 </div>
-
+{{filters}}
   </div>
 </template>
 
@@ -53,13 +55,15 @@ import kv from "../components/One_apartment";
 import fake_data from "../js/fake_data";
 
 export default {
+  name: 'apartments',
   components: {
      kv
    },
   data() {
     return {
+      page:1,
       data: [],
-      result:[],
+      count:Number,
       errors: [],
       selected: [1,2,3], 
       options: [
@@ -70,11 +74,15 @@ export default {
     }
   },
 
+
+
   methods: {
    async Choice(){
         //console.log(this.selected);
       try{
+          this.$router.push(`/apartments?page=${this.page}&filters=${this.selected}`)
         this.data =  await fake_data.getkv(this.selected)
+        //this.count = data.length
     }
     catch(err){
       this.errors = err
@@ -84,6 +92,13 @@ export default {
 
   async mounted () {
     try{
+        if(this.$route.query.filters != null){
+        this.selected = this.$route.query.filters.split(",")
+      }
+        if(this.$route.query.page != null){
+        this.page = this.$route.query.page
+      }
+      
         this.data =  await fake_data.getkv(this.selected)
     }
     catch(err){

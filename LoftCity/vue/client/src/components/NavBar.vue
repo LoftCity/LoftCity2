@@ -7,9 +7,9 @@
     <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
         <b-nav-item href="#"><router-link class="link" to ='/'>Главная</router-link></b-nav-item>
-        <b-nav-item href="#"><router-link class="link" to ='/All_apartments'>Все квартиры</router-link></b-nav-item>
-        <b-nav-item href="#"><router-link class="link" to ='/Documents'>Документация</router-link></b-nav-item>
-        <b-nav-item href="#"><router-link class="link" to ='/About'>О нас</router-link></b-nav-item>
+        <b-nav-item href="#"><router-link class="link" to ='/apartments'>Все квартиры</router-link></b-nav-item>
+        <b-nav-item href="#"><router-link class="link" to ='/documents'>Документация</router-link></b-nav-item>
+        <b-nav-item href="#"><router-link class="link" to ='/about'>О нас</router-link></b-nav-item>
       </b-navbar-nav>
 
     </b-collapse>

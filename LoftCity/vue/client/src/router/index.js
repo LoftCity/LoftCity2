@@ -11,26 +11,40 @@ const routes = [
     component: Home
   },
   {
-    path: "/About",
-    name: "About",
+    path: "/about",
+    name: "about",
     component: () =>
       import( "../views/About.vue")
   },
   {
-    path: '/All_apartments',
-    name: 'All_apartments',
-    component: () => import('../views/All_apartments.vue')
+    path: '/apartments',
+    name: 'apartments',
+    component: () => import('../views/All_apartments.vue'),
+    props(route) {
+      return  route.query || {}
+    }
   },
+  
   {
-    path:'/One_kv/:id',
-    name: 'One_kv',
+    path:'/kv/:id',
+    name: 'kv',
     component: () => import('../views/One_kv.vue'),
     props: true
   },
   {
-    path: '/Documents',
-    name: 'Documents',
+    path: '/documents',
+    name: 'documents',
     component: () => import('../views/Documents.vue')
+  },
+
+
+  {
+    path: '/test',
+    name: 'test',
+    component: () => import('../views/test.vue'),
+    props(route) {
+      return  route.query || {}
+    }
   },
 ];
 
