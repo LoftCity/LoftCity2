@@ -14,7 +14,6 @@ class fake_data
          reject(err);
      });
   })
-
  }
 
 
@@ -32,8 +31,6 @@ class fake_data
        })
        .catch((err)=>{
           reject(err);
-        
- 
       });
    })
   }
@@ -55,12 +52,28 @@ class fake_data
        })
        .catch((err)=>{
           reject(err);
-        
- 
       });
    })
   }
 
+
+
+  static onedoc(id){
+   return new Promise((resolve,reject) =>{
+      axios
+      .get("http://localhost:5000/doc/"+id)
+      .then((res)=> {
+         const data = res.data; 
+         console.log(data);
+         resolve(
+            data
+            )
+       })
+       .catch((err)=>{
+          reject(err);
+      });
+   })
+  }
 
 
 

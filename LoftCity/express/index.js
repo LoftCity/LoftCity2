@@ -35,24 +35,6 @@ for (let i=0; i<10; i++){
 
 
 
-
-app.get('/one', (req,res) => {
-  var onekv = [  
-          {
-          "city": faker.image.avatar(),
-          "text": faker.lorem.paragraph(),
-          "address": faker.address.streetAddress() ,
-          "email":faker.internet.email(),
-          "number" : faker.phone.phoneNumber()
-           }
-      ];
-  res.json(onekv);
-  console.log('Sent list of items(One)');
-});
-
-
-
-
 // An api endpoint that returns a short list of items
 app.get('/apartments/:filter', (req,res) => {
   let result = Array();
@@ -84,6 +66,14 @@ for (let i=0; i<4; i++){
 app.get('/docs', (req,res) => {
     res.json(doc);
     console.log('Sent list of items (docs)');
+});
+
+
+app.get('/doc/:id', async (req,res) => {
+    param = req.params.id; 
+    var onedoc = doc[param];
+    res.json(onedoc);
+    console.log('Sent list of items (docs) with id');
 });
 
 

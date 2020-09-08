@@ -7,7 +7,7 @@
    <b-card-text>
       Cтатус: {{word}}
   </b-card-text>
-  <b-button href="#" variant="primary">Подробнее</b-button>
+  <b-button href="#" variant="primary"><router-link :to= "{name: 'document', params: {doc: doc, id: id }}" >Подробнее</router-link></b-button>
 </b-card>
 </div>
 </template>
@@ -21,7 +21,7 @@ export default {
     text: String,
     id: Number,
     word:String,
-    doc: String,
+    doc: String
   }
 }
 </script>

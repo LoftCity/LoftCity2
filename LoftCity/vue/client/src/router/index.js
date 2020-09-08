@@ -37,6 +37,13 @@ const routes = [
     component: () => import('../views/Documents.vue')
   },
 
+  {
+    path: '/document/:doc',
+    name: 'document',
+    component: () => import('../views/One_doc.vue'),
+    props: true
+  },
+
 
   {
     path: '/test',

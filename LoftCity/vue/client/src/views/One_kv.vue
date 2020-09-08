@@ -23,8 +23,8 @@
     {{data.email}}
 </b-card-text>
 <span>
-  <b-button variant="danger"><router-link to= '/apartments'>Назад</router-link></b-button>
-  <b-button variant="success"><router-link to= '/Documents'>Документы для заполнения</router-link></b-button>
+  <b-button><router-link to= '/apartments'>Назад</router-link></b-button>
+  <b-button><router-link to= '/documents'>Документы для заполнения</router-link></b-button>
 </span>
 </div>
 </template>
@@ -54,20 +54,6 @@ export default {
 
 }
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <style>

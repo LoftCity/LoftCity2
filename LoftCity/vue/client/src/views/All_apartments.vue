@@ -46,7 +46,6 @@
         </b-button-group>
       </b-button-toolbar>
 </div>
-{{filters}}
   </div>
 </template>
 
@@ -80,7 +79,7 @@ export default {
    async Choice(){
         //console.log(this.selected);
       try{
-          this.$router.push(`/apartments?page=${this.page}&filters=${this.selected}`)
+        this.$router.push(`/apartments?page=${this.page}&filters=${this.selected}`)
         this.data =  await fake_data.getkv(this.selected)
         //this.count = data.length
     }

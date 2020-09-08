@@ -6,6 +6,7 @@
     v-bind:text= res.text 
     v-bind:word= res.word 
     v-bind:doc= res.doc 
+    v-bind:id = res.id
     />
 
 
