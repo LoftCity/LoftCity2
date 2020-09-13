@@ -9,7 +9,7 @@ app.use(cors())
 
 
 var kv = Array();
-for (let i=0; i<10; i++){
+for (let i=0; i<500; i++){
     kv[i]={
       "id":i,
       "img": faker.image.avatar(),
@@ -33,22 +33,25 @@ for (let i=0; i<10; i++){
      res.json(onekv);
     })
 
-
-
-// An api endpoint that returns a short list of items
-app.get('/apartments/:filter', (req,res) => {
-  let result = Array();
-  let count=0;
-  for(let i= 0;i <  req.params.filter.length;i++){
-    for (let j= 0; j< kv.length; j++){
-         if(kv[j].numroom == req.params.filter[i])
-         result[count++]=kv[j]
+   app.get('/apartments/page=:page&filter=:filter', async (req,res) => {
+    let all = Array();
+    let onPage = Array();
+    let LIMIT_PAGE = 5;
+    let count = 0;
+    let f = req.params.filter.split(',')
+    for(let i= 0;i < f.length;i++){
+      for (let j= 0; j< kv.length; j++){
+           if(kv[j].numroom == req.params.filter[i]){
+              all[count++]=kv[j]       
+           }
+      }
     }
-  }
-    res.json(result);
-    console.log('Sent list of items (kv)');
-    
-});
+  
+    for(let i = LIMIT_PAGE*(req.params.page-1);all.length > i && i < LIMIT_PAGE*(req.params.page); i++){
+      onPage.push(all[i])
+    }
+    res.json(onPage);
+   })
 
 
 // An api endpoint that returns a short list of items

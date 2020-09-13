@@ -30,19 +30,13 @@
 <div class = "justify">
       <b-button-toolbar class="justify" key-nav aria-label="Toolbar with button groups">
         <b-button-group class="mx-1" >
-          <b-button>&laquo;</b-button>
-          <b-button>&lsaquo;</b-button>
+  
+          <b-button v-show="prev" @click="prevPage">&lsaquo;</b-button>
         </b-button-group>
+      
         <b-button-group class="mx-1">
-          <b-button>1</b-button>
-          <b-button>2</b-button>
-          <b-button>3</b-button>
-          <b-button>4</b-button>
-          <b-button>5</b-button>
-        </b-button-group>
-        <b-button-group class="mx-1">
-          <b-button>&rsaquo;</b-button>
-          <b-button>&raquo;</b-button>
+          <b-button v-show="next" @click="nextPage">&rsaquo;</b-button>
+
         </b-button-group>
       </b-button-toolbar>
 </div>
@@ -60,6 +54,8 @@ export default {
    },
   data() {
     return {
+      prev:1,
+      next:1,
       page:1,
       data: [],
       count:Number,
@@ -76,12 +72,52 @@ export default {
 
 
   methods: {
+    async prevPage(){
+      if(this.page>1)
+        this.page--
+      else
+       this.prev = 0
+      this.next = 1
+         try{
+        this.$router.push(`/apartments?page=${this.page}&filter=${this.selected}`)
+        this.data =  await fake_data.getkv("page="+this.page+"&filter="+this.selected)
+    }
+    catch(err){
+      this.errors = err
+    }
+    },
+
+  
+
+
+
+
+
+    async nextPage(){
+      if(this.page <4)
+         this.page++
+      else
+        this.next = 0
+      this.prev = 1
+         try{
+        this.$router.push(`/apartments?page=${this.page}&filter=${this.selected}`)
+        this.data =  await fake_data.getkv("page="+this.page+"&filter="+this.selected)
+       
+    }
+    catch(err){
+      this.errors = err
+    }
+    },
+
+
+
+
+
+
    async Choice(){
-        //console.log(this.selected);
       try{
-        this.$router.push(`/apartments?page=${this.page}&filters=${this.selected}`)
-        this.data =  await fake_data.getkv(this.selected)
-        //this.count = data.length
+        this.$router.push(`/apartments?page=${this.page}&filter=${this.selected}`)
+        this.data =  await fake_data.getkv("page="+this.page+"&filter="+this.selected)
     }
     catch(err){
       this.errors = err
@@ -89,7 +125,14 @@ export default {
   }
   },
 
+
+
+
+
+
+
   async mounted () {
+   
     try{
         if(this.$route.query.filters != null){
         this.selected = this.$route.query.filters.split(",")
@@ -98,11 +141,12 @@ export default {
         this.page = this.$route.query.page
       }
       
-        this.data =  await fake_data.getkv(this.selected)
+        this.data =  await fake_data.getkv("page="+this.page+"&filter="+this.selected)
     }
     catch(err){
       this.errors = err
     }
+     this.$router.push(`/apartments?page=${this.page}&filter=${this.selected}`)
   }
 }
 </script>
