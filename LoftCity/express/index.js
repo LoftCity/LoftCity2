@@ -33,24 +33,28 @@ for (let i=0; i<500; i++){
      res.json(onekv);
     })
 
-   app.get('/apartments/page=:page&filter=:filter', async (req,res) => {
+
+  app.get('/apartments', async (req,res) => {
+    var queryParameter = req.query;
+    var json = JSON.stringify(queryParameter)
+    var obj = JSON.parse(json);
     let all = Array();
     let onPage = Array();
     let LIMIT_PAGE = 5;
     let count = 0;
-    let f = req.params.filter.split(',')
+    let f = obj.filter.split(',');
     for(let i= 0;i < f.length;i++){
       for (let j= 0; j< kv.length; j++){
-           if(kv[j].numroom == req.params.filter[i]){
+          if(kv[j].numroom == f[i]){
               all[count++]=kv[j]       
-           }
+            }
+          }
+       }
+    
+      for(let i = LIMIT_PAGE*(obj.page-1);all.length > i && i < LIMIT_PAGE*(obj.page); i++){
+        onPage.push(all[i])
       }
-    }
-  
-    for(let i = LIMIT_PAGE*(req.params.page-1);all.length > i && i < LIMIT_PAGE*(req.params.page); i++){
-      onPage.push(all[i])
-    }
-    res.json(onPage);
+      res.json(onPage);
    })
 
 
